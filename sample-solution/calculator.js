@@ -35,7 +35,6 @@ const quickMafs = () => {
   let secondNum = "";
   let onlyNum = "";
   let sumCopy = [...sumArray];
-  // find nan but not .
   const findNan = sumCopy.find(
     i => i === "X" || i === "-" || i === "+" || i === "/" || i === "%"
   );
