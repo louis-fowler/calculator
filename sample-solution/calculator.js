@@ -1,90 +1,76 @@
-var numString = ''
-var numArray = []
-let display = document.getElementById('display')
-let isPreviousResult = false
+// set up variables to store inputs as they Come. final function on equals button to do Math.
+//  varibale array to store whole input then run function to doo Math.
+display = document.getElementById("display");
 
-listen()
+let sumArray = [];
+let totalNum = "";
 
-function listen () {
-  document.addEventListener('click', getButtonValue)
-}
-
-function getButtonValue () {
-  let button = event.target.value
-  if (!isNaN(button) || button === '.') {
-    number(button)
-  } else if (button === 'AC') {
-    allClear()
-  } else if (button === 'CE') {
-    clear()
-  } else if (button === '=') {
-    calculate()
-  } else {
-    storeNumber(button)
-  }
-}
-
-function number (button) {
-  if (button === '.' && numString.includes('.')) {
-    return
-  } else if (numString.charAt(0) === '0' && numString.length === 1 && button === '0') {
-    return
-  } else {
-    if (isPreviousResult === true){
-      numString = ''
-      isPreviousResult = false
+// add function to all buttons
+let buttons = document.getElementsByTagName("button");
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", function () {
+    let sym = buttons[i].innerHTML;
+    if (sym === "AC") {
+      return (
+        (sumArray = []),
+        (totalNum = ""),
+        (display.innerHTML = sumArray.join(" "))
+      );
+    } else if (sym === "CE") {
+      return (sumArray = []), (display.innerHTML = sumArray.join(" "));
+    } else if (sym === "=") {
+      return quickMafs();
+    } else if (isNaN(sym)) {
+      sym = sym;
+    } else {
+      sym = parseInt(sym);
     }
-    numString += button
-    display.value = numString
-  }
+    sumArray.push(sym);
+    display.innerHTML = sumArray.join(" ");
+  });
 }
 
-function allClear () {
-  numString = ''
-  numArray = []
-  display.value = '0'
-}
+const quickMafs = () => {
+  let firstNum = "";
+  let secondNum = "";
+  let onlyNum = "";
+  let sumCopy = [...sumArray];
+  // find nan but not .
+  const findNan = sumCopy.find(
+    i => i === "X" || i === "-" || i === "+" || i === "/" || i === "%"
+  );
+  const nanIndex = sumCopy.findIndex(key => key === findNan);
+  const arrayLength = sumCopy.length;
 
-function clear () {
-  numString = ''
-  display.value = '0'
-}
-
-function storeNumber (button) {
-  if (numString === '' && numArray.length === 0) {
-    return
-  } else if (numString === '') {
-    numArray.length = numArray.length - 1
-    numArray.push(button)
+  if (nanIndex !== 0) {
+    (firstNum = sumCopy.splice(0, nanIndex).join("")),
+      (secondNum = sumCopy.splice(1, arrayLength).join(""));
+    if (findNan === "X") {
+      totalNum = firstNum * secondNum;
+    } else if (findNan === "-") {
+      totalNum = firstNum - secondNum;
+    } else if (findNan === "+") {
+      totalNum = +firstNum + +secondNum;
+    } else if (findNan === "/") {
+      totalNum = firstNum / secondNum;
+    } else if (findNan === "%") {
+      totalNum = (firstNum / 100) * secondNum;
+    }
   } else {
-    numArray.push(numString)
-    numArray.push(button)
-    numString = ''
-  }
-}
+    onlyNum = sumCopy.splice(1, arrayLength).join("");
 
-function calculate () {
-  numArray.push(numString)
-  let currentNumber = Number(numArray[0])
-  for (var i = 0; i < numArray.length; i++) {
-    let nextNumber = Number(numArray[i + 1])
-    let symbol = numArray[i]
-    if (symbol === '+') {
-      currentNumber += nextNumber
-    } else if (symbol === '-') {
-      currentNumber -= nextNumber
-    } else if (symbol === '*') {
-      currentNumber *= nextNumber
-    } else if (symbol === '/') {
-      currentNumber /= nextNumber
+    if (findNan === "X") {
+      totalNum *= onlyNum;
+    } else if (findNan === "-") {
+      totalNum -= onlyNum;
+    } else if (findNan === "+") {
+      totalNum += +onlyNum;
+    } else if (findNan === "/") {
+      totalNum /= onlyNum;
+    } else {
+      totalNum = (totalNum / 100) * onlyNum;
     }
   }
-  if (currentNumber < 0) {
-    currentNumber = Math.abs(currentNumber) + '-'
-  }
-
-  display.value = currentNumber
-  numString = JSON.stringify(currentNumber)
-  isPreviousResult = true
-  numArray = []
-}
+  sumArray = [];
+  display.innerHTML = totalNum;
+};

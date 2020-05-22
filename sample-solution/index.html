@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Calculator</title>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
-    <link href="calculator.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="calculator.css" />
   </head>
   <body>
-    <div class="calculator">
-        <h1 class="title">EDA-CALC</h1>
-        <h2 class="tagline">Sol-001</h2>
-        <input class="input" type ="text" id ="display" value ="0">
+    <!-- Set up container as well as rows for each button/ screen  -->
+    <div class="calcContainer">
+      <div class="headerRow">
+        <p>LouCalc</p>
+      </div>
+      <div class="screenRow">
+        <p id="display"></p>
+      </div>
+      <div class="buttons">
         <div class="row">
-                <button id="clear" class ="ctrl wide" value="AC">AC</button>
-                <button id="clear" class ="ctrl" value="CE">CE</button>
-                <button id="divide" class="button" value="/">÷</button>
+          <button id="ac">AC</button>
+          <button>CE</button>
+          <button id="%">%</button>
+          <button id="/">/</button>
         </div>
         <div class="row">
-                <button id="seven" class="button" value="7">7</button>
-                <button id="eight" class="button" value="8">8</button>
-                <button id="nine" class="button" value="9">9</button>
-                <button id="multiply" class="button" value="*">X</button>
+          <button id="9">7</button>
+          <button id="8">8</button>
+          <button id="9">9</button>
+          <button id="x">X</button>
         </div>
         <div class="row">
-                <button id="four" class="button" value="4">4</button>
-                <button id="five" class="button" value="5">5</button>
-                <button id="six" class="button" value="6">6</button>
-                <button id="subtract" class="button" value="-">-</button>
+          <button id="4">4</button>
+          <button id="5">5</button>
+          <button id="5">6</button>
+          <button id="-">-</button>
         </div>
         <div class="row">
-                <button id="one" class="button" value="1">1</button>
-                <button id="two" class="button" value="2">2</button>
-                <button id="three" class="button" value="3">3</button>
-                <button id="add" class="button" value="+">+</button>
+          <button id="1">1</button>
+          <button id="2">2</button>
+          <button id="3">3</button>
+          <button id="+">+</button>
         </div>
         <div class="row">
-                <button id="zero" class="button" value="0">0</button>
-                <button id="decimal" class="button" value=".">.</button>
-                <button id="equals" class="button wide" value="=">=</button>
+          <button id="0">0</button>
+          <button id=".">.</button>
+          <button>=</button>
         </div>
+      </div>
     </div>
     <script src="calculator.js"></script>
   </body>
